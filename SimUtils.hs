@@ -36,5 +36,3 @@ cross a b = V.fromList [ihat, jhat, khat]
 
 magnitude :: Floating a => Vector a -> a
 magnitude vec = sqrt $ V.sum $ V.map (^2) vec
-
-

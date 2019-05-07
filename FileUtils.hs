@@ -14,19 +14,21 @@ splitStringAt char str = Prelude.map T.unpack $ T.splitOn (T.pack char) (T.pack 
 rmUnits :: String -> String
 rmUnits headerLine = R.subRegex (R.mkRegex "\\(.{0,6}\\)") headerLine ""
 
+getMapKeys :: [String] -> [String]
+getMapKeys fileLines = splitStringAt "," headerLine
+  where
+    headerLine = filter (/= ' ') $ rmUnits (Prelude.head fileLines)
+
+getMapData :: (Num a, Read a) => [[String]] -> [V.Vector a]
+getMapData splitLines = [M.getCol i dataMat | i <- [0..(length splitLines - 1)]]
+  where
+    dataMat = M.fromLists ((fmap . fmap) read (tail splitLines) :: [[a]])
+
 csvToMap :: (Num a, Read a) => String -> DM.Map String (V.Vector a)
-csvToMap fileContents = DM.fromList $ zip keys values
+csvToMap fileContents = DM.fromList $ zip (getMapKeys fileLines) (getMapData splitLines)
   where
     fileLines = lines fileContents
     splitLines = fmap (splitStringAt ",") fileLines
-    headerLine = filter (/= ' ') $ rmUnits (Prelude.head fileLines)
-    keys = splitStringAt "," headerLine
-    dataMat = M.fromLists ((fmap . fmap) read (tail splitLines) :: [[a]])
-    values = [M.getCol i dataMat | i <- [0..(length headerLine - 1)]]
 
---readDataFile :: (Num a) => FilePath -> IO (Map String a)
---readDataFile path = []
---  where
---    fileLines = fmap lines (readFile path)
---    splitLines = fileLines >>= return . fmap (splitStringAt ",")
---    firstLine = head splitLines
+readDataFile :: (Num a, Read a) => FilePath -> IO (DM.Map String a)
+readDataFile path = fmap csvToMap (readFile path)
