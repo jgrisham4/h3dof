@@ -22,7 +22,7 @@ getMapKeys fileLines = splitStringAt "," headerLine
 getMapData :: (Num a, Read a) => [[String]] -> [V.Vector a]
 getMapData splitLines = [M.getCol i dataMat | i <- [0..(length splitLines - 1)]]
   where
-    dataMat = M.fromLists ((fmap . fmap) read (tail splitLines) :: [[a]])
+    dataMat = M.fromLists ((fmap . fmap) read (tail splitLines))
 
 csvToMap :: (Num a, Read a) => String -> DM.Map String (V.Vector a)
 csvToMap fileContents = DM.fromList $ zip (getMapKeys fileLines) (getMapData splitLines)
@@ -30,5 +30,5 @@ csvToMap fileContents = DM.fromList $ zip (getMapKeys fileLines) (getMapData spl
     fileLines = lines fileContents
     splitLines = fmap (splitStringAt ",") fileLines
 
-readDataFile :: (Num a, Read a) => FilePath -> IO (DM.Map String a)
+readDataFile :: (Num a, Read a) => FilePath -> IO (DM.Map String (V.Vector a))
 readDataFile path = fmap csvToMap (readFile path)
