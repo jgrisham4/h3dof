@@ -1,6 +1,7 @@
 module SimUtils
 ( dot
 , cross
+, magnitude
 , Position(..)
 , Velocity(..)
 , Acceleration(..)
@@ -12,7 +13,7 @@ import           Data.Vector as V
 import           System.IO
 
 -- Kinematic state types
-newtype Position a = Position (Vector a) deriving (Show, Eq)
+newtype Position a = Position (Vector a) deriving (Show, Eq) -- TODO: Define instance of Num typeclass
 newtype Velocity a = Velocity (Vector a) deriving (Show, Eq)
 newtype Acceleration a = Acceleration (Vector a) deriving (Show, Eq)
 data State a = State (Position a) (Velocity a) (Acceleration a)

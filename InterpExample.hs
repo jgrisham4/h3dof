@@ -5,13 +5,6 @@ import SimUtils
 import FileUtils
 import Interp
 
-{-
-B -> Body
-A -> Air
-E -> ECEF
-U -> UEN
--}
-
 main = do
   atmosphereData <- readDataFile "standard_atmosphere.dat" :: IO (DM.Map String (V.Vector Double))
   putStrLn "Enter an altitude in meters: "
