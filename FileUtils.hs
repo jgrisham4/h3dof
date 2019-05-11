@@ -33,5 +33,10 @@ csvToMap fileContents = DM.fromList $ zip (getMapKeys fileLines) (getMapData spl
     fileLines = lines fileContents
     splitLines = fmap (splitStringAt ",") fileLines
 
+-- This function returns a Data.Map whose keys are the column titles and
+-- whose values are Data.Vectors which contain the numeric data in the columns.
+-- The resulting map can be queried as follows:
+-- > datamap = readDataFile "standard_atmosphere.dat"
+-- > fmap (DM.lookup "Alt") datamap :: IO (Maybe (V.Vector Double))
 readDataFile :: (Num a, Read a) => FilePath -> IO (DM.Map String (V.Vector a))
 readDataFile path = fmap csvToMap (readFile path)
