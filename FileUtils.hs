@@ -1,5 +1,5 @@
 module FileUtils
-( rmUnits
+( readDataFile
 ) where
 
 import qualified Data.Map    as DM
@@ -19,10 +19,13 @@ getMapKeys fileLines = splitStringAt "," headerLine
   where
     headerLine = filter (/= ' ') $ rmUnits (Prelude.head fileLines)
 
+convertTextToNum :: (Num a, Read a) => [[String]] -> [[a]]
+convertTextToNum splitLines = (fmap . fmap) read (tail splitLines)
+
 getMapData :: (Num a, Read a) => [[String]] -> [V.Vector a]
-getMapData splitLines = [M.getCol i dataMat | i <- [0..(length splitLines - 1)]]
+getMapData splitLines = [M.getCol i dataMat | i <- [1..(length (head splitLines))]]
   where
-    dataMat = M.fromLists ((fmap . fmap) read (tail splitLines))
+    dataMat = M.fromLists $ convertTextToNum splitLines
 
 csvToMap :: (Num a, Read a) => String -> DM.Map String (V.Vector a)
 csvToMap fileContents = DM.fromList $ zip (getMapKeys fileLines) (getMapData splitLines)

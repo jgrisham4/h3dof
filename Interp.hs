@@ -1,5 +1,5 @@
 module Interp
-() where
+(interp) where
 
 import           Data.Vector as V
 
