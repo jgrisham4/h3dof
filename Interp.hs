@@ -16,4 +16,3 @@ interp x xv yv
       y2 = yv ! (i+1)
       m = (y2 - y1) / (x2 - x1)
       b = y1 - m * x1
-

@@ -37,3 +37,8 @@ cross a b = V.fromList [ihat, jhat, khat]
 
 magnitude :: Floating a => Vector a -> a
 magnitude vec = sqrt $ V.sum $ V.map (^2) vec
+
+linspace :: Floating a => a -> a -> Int -> [a]
+linspace lb ub n = [(fromIntegral i) * dx + lb | i <- [0..(n-1)]]
+  where
+    dx = (ub - lb) / (fromIntegral (n - 1))
