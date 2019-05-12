@@ -2,6 +2,7 @@ module SimUtils
 ( dot
 , cross
 , magnitude
+, linspace
 , Position(..)
 , Velocity(..)
 , Acceleration(..)

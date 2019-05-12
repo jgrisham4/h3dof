@@ -3,15 +3,15 @@ module Environment
 , specificHeatRatio
 , temperature
 , pressure
-, density
-, speedOfSound
 ) where
+--, density
+--, speedOfSound
 
 -- R_air = 287.0 J / (kg * K)
-gasConstantAir = 287
+gasConstantAir = 287 :: (RealFloat a => a)
 
 -- gamma = cp / cv
-specificHeatRatio = 1.4
+specificHeatRatio = 1.4 :: (RealFloat a => a)
 
 -- Returns temperature in Kelvin when provided with altitude in meters.
 temperature :: RealFloat a => a -> a
@@ -30,5 +30,5 @@ density :: RealFloat a => a -> a
 density h = (pressure h) / (gasConstantAir * (temperature h))
 
 -- Returns speed of sound in m/s when provided with altitude in meters.
-speedOfSound :: RealFloat a => a -> a
-speedOfSound h = sqrt (specificHeatRatio * gasConstantAir * (temperature h))
+--speedOfSound :: RealFloat a => a -> a
+--speedOfSound h = sqrt (specificHeatRatio * gasConstantAir * (temperature h))
