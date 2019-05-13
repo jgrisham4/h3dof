@@ -7,10 +7,12 @@ module Environment
 
 -- R_air = 287.0 J / (kg * K)
 --gasConstantAir = 287.0 :: RealFloat a => a
+gasConstantAir :: RealFloat a => a
 gasConstantAir = 287.0
 
 -- gamma = cp / cv
---specificHeatRatio = 1.4 :: RealFloat a => a
+specificHeatRatio :: RealFloat a => a
+specificHeatRatio = 1.4
 
 -- Returns temperature in Kelvin when provided with altitude in meters.
 temperature :: RealFloat a => a -> a
@@ -26,9 +28,7 @@ pressure h
 
 -- Returns density in kg/m^3 when provided with altitude in meters.
 density :: RealFloat a => a -> a
-density h = pressure h / (r * temperature h)
-  where
-    r = 287.0
+density h = pressure h / (gasConstantAir * temperature h)
 
 -- Returns speed of sound in m/s when provided with altitude in meters.
 speedOfSound :: RealFloat a => a -> a
