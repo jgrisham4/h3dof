@@ -19,6 +19,7 @@ newtype Velocity a = Velocity (Vector a) deriving (Show, Eq)
 newtype Acceleration a = Acceleration (Vector a) deriving (Show, Eq)
 data State a = State (Position a) (Velocity a) (Acceleration a)
 
+-- Force and moment types
 newtype Force a = Force (Vector a) deriving (Show, Eq)
 
 -- Monoid instance for the Force type so that we can sum forces easily

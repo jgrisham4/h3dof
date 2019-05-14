@@ -5,6 +5,8 @@ module Environment
 , speedOfSound
 ) where
 
+-- Implementation of 1962 standard atmosphere
+
 -- R_air = 287.0 J / (kg * K)
 --gasConstantAir = 287.0 :: RealFloat a => a
 gasConstantAir :: RealFloat a => a
@@ -32,7 +34,4 @@ density h = pressure h / (gasConstantAir * temperature h)
 
 -- Returns speed of sound in m/s when provided with altitude in meters.
 speedOfSound :: RealFloat a => a -> a
-speedOfSound h = sqrt (g * r * (temperature h))
-  where
-    r = 287.0
-    g = 1.4
+speedOfSound h = sqrt (specificHeatRatio * gasConstantAir * (temperature h))
