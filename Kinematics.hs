@@ -1,5 +1,6 @@
 module Kinematics
 ( llaToEcef
+, ecefToLLA
 , Position(..)
 , Velocity(..)
 , Acceleration(..)
@@ -37,3 +38,6 @@ llaToEcef lat lon alt = Position $ V.fromList [x, y, z]
     f = 1 / 298.257223563
     b = a * (1 - f)
     e = sqrt ((a^2 - b^2) / a^2)
+
+ecefToLLA :: Floating a => Position a -> (a,a,a)
+ecefToLLA posECEF = []
