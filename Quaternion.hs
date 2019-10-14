@@ -11,6 +11,8 @@ import           Data.Vector
 
 {-
 This module contains functions for use with quaternions.
+
+Author: James Grisham
 -}
 
 data Quaternion a = Quaternion a a a a deriving (Eq,Show)
@@ -28,7 +30,7 @@ quatAngleAxis angle axis = Quaternion q1 q2 q3 q4
   where
     sinangle = sin(angle/2.0)
     cosangle = cos(angle/2.0)
-    q1 = cos(angle/2.0)
+    q1 = cosangle
     q2 = axis ! 0 * sinangle
     q3 = axis ! 1 * sinangle
     q4 = axis ! 2 * sinangle
